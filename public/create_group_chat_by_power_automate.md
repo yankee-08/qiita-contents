@@ -1,13 +1,13 @@
 ---
 title: Power Automate上でグループチャットを作成する時にハマった点の備忘録
 tags:
+  - 備忘録
+  - Teams
   - PowerPlatform
   - PowerAutomate
-  - Teams
-  - 備忘録
 private: false
-updated_at: ''
-id: null
+updated_at: '2023-08-21T22:07:41+09:00'
+id: 1c02825ef1dde2514f13
 organization_url_name: null
 slide: false
 ---
