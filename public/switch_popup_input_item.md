@@ -6,8 +6,8 @@ tags:
   - PowerPlatform
   - ローコード
 private: false
-updated_at: ''
-id: null
+updated_at: '2023-10-13T00:05:13+09:00'
+id: a183e575c74ca4e832eb
 organization_url_name: null
 slide: false
 ignorePublish: false
