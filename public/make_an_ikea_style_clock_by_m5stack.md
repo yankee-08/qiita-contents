@@ -10,6 +10,7 @@ updated_at: '2023-04-08T21:44:50+09:00'
 id: 1591724d8a2722951c7e
 organization_url_name: null
 slide: false
+ignorePublish: false
 ---
 
 [M5Stack Advent Calendar 2019](https://qiita.com/advent-calendar/2019/m5stack) 8日目の記事です。
@@ -18,6 +19,7 @@ slide: false
 最終的なソースは最後の実装まとめに載せていますので、ソースだけ見たいという方はそちらをご覧ください。
 
 # ◇はじめに
+
 本記事では、先日購入したM5Stack FIREを使用して、作成したアプリケーションについて掲載しています。
 当初、どんなアプリを作ろうと考えていましたが、
 
@@ -26,18 +28,19 @@ slide: false
 ことから今回は、**KLOCKIS クロッキス**の挙動を確認しつつ、できるだけ近しいモノ（IKEA風クロック）を作ることにしました。
 
 # ◇とりあえず最終成果物（できたもの）
+
 まず、最終的にどんなもんができるのかを書いておきます。
 時計の向きを変えると、機能が切り替わっていきます。
 <blockquote class="twitter-tweet"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/Qiita?src=hash&amp;ref_src=twsrc%5Etfw">#Qiita</a> のM5Stack Advent Calendar記事投稿用<br>GIF化するよりこっちの方が動画埋め込むのらくそう。 <a href="https://t.co/l8MRaAz8kl">pic.twitter.com/l8MRaAz8kl</a></p>&mdash; yankee (@yankee_sns) <a href="https://twitter.com/yankee_sns/status/1201125638435823621?ref_src=twsrc%5Etfw">December 1, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
 
-
 なお、注意点として、
 
 - バッテリーのもちは基本考慮しない。
--  温度表示は加速度センサに内蔵の温度センサの値を使用しており、外気温ではない  
+- 温度表示は加速度センサに内蔵の温度センサの値を使用しており、外気温ではない  
 ことをあらかじめご了承ください。
 
 # ◇開発環境等
+
 - OS : Windows 10 Home（バージョン1809）
 - IDE : Arduino IDE 1.8.9 (Windows Store 1.8.21.0)
 - ボードマネージャ：Arduino core for the ESP32（バージョン1.0.4）
@@ -46,6 +49,7 @@ slide: false
 - 内蔵加速度センサ：MPU9250
 
 # ◇実装内容
+
 ### ㊟ 記事の記載順
 
 以降、実際にコーディングした内容を機能ごとに記載していきますが、
@@ -54,12 +58,12 @@ slide: false
 - 調査した内容をベースにM5Stackに実装した内容  
 の順に説明していきます。
 
-
 ## ①傾きに応じたモード切り替え
+
 ### **KLOCKIS クロッキス**の挙動チェック
+
 >以下、IKEA社HPのKLOCKIS クロッキス商品説明からの引用です。
 >>時刻/日付、 アラーム、温度、タイマーの4つの機能が、時計の向きを変えるだけで表示されます。場所を取らず、使い方も簡単。半分寝起きの頭にも分かりやすい表示です
-
 
 上記[IKEAサイト](https://www.ikea.com/jp/ja/catalog/products/00384828/)にも記載があるように、**KLOCKIS クロッキス**は、時計の向きによって、機能が切り替わり画面表示も変わる仕様となっています。
 また、実際に触ってみたところ、
@@ -122,7 +126,6 @@ int32_t getAngle()
 これで、M5Stackの傾きがとれるようになったので、つづいて取得した傾きに応じて機能を切り替える部分を実装していきます。
 基本的には、それぞれの基準の角度±αの範囲内になったら、機能を切り替える処理になりますが、境界値付近で何度も切り替わりが発生するのを防ぐためにヒステリシスを持たせるような仕組みとしています。
 イメージを下図に示しますが、M5Stack FIREが傾いて機能が変わったあとに元の機能に戻りくくなるようにしています。
-
 
 ![010.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/371217/0d9e6639-04f2-1f17-99d3-99d621cf96cb.png)
 
@@ -299,10 +302,13 @@ void loop()
 ```
 
 ## ②数字の7セグ風表示
+
 ### **KLOCKIS クロッキス**の挙動チェック
+
 **KLOCKIS クロッキス**の時刻/日付、 アラーム、温度、タイマーそれぞれの画面の数字表示は、7セグメントLED風のデザインになっていることからM5Stackでもできるかぎり同様のデザインとなるようにしました。
 
 ### M5Stackへの実装
+
 数字表示については関数化し、引数の数字に応じて、それぞれのセグメントのバー部分を描画するようにしました。
 バーの描画は`M5.Lcd.fillRoundRect()`関数を使用し、コーナー半径を指定して長方形の角を丸めています。
 どの数字に対してどのセグメント部分を描画するかは、それぞれのセグメントのON/OFFを0/1のビットで定義しています（`digits_norma[]`、`digits_V_long[]`の部分）。
@@ -432,7 +438,9 @@ void drawNumberNormal(uint8_t x_start, uint8_t y_start, uint8_t number, uint8_t 
 それぞれの機能では、これらの関数をつかって、数字表示を行っていきます。
 
 ## ③「温度」機能
+
 ### **KLOCKIS クロッキス**の挙動チェック
+
 **KLOCKIS クロッキス**の温度機能を確認し、
 
 - 背景色は青色
@@ -444,6 +452,7 @@ void drawNumberNormal(uint8_t x_start, uint8_t y_start, uint8_t number, uint8_t 
 ### M5Stackへの実装
 
 #### ◆背景色設定
+
 RGBそれぞれ0-255の範囲で指定した色を`M5.Lcd.color565()`関数をつかって変換した後に、`M5.Lcd.fillScreen()`関数を使って背景色を設定しています。
 このとき、画面のチラつきをおさえるため、傾きが変わって機能が切り替わったときなどに限定して、`M5.Lcd.fillScreen()`関数を呼び出すようにしています。
 
@@ -452,6 +461,7 @@ RGBそれぞれ0-255の範囲で指定した色を`M5.Lcd.color565()`関数を�
 _参考URL_：[m5stack/m5-docs lcd.md](https://github.com/m5stack/m5-docs/blob/master/docs/ja/api/lcd.md)
 
 #### ◆温度取得・表示
+
 温度の取得については、今回はM5Stack FIREの加速度センサMPU9250に内蔵されている温度センサからデータをとっています。そのため、**室温の温度と一致せず、起動し続けると温度が上がっていく**ことに注意です。
 温度取得の関数はサンプルプログラムをそのまま流用しています。
 その後、取得した温度の値を10の位と1の位に分離して、それぞの数字に対して表示位置を指定して`drawNumberVLong()`関数を呼び出しています。
@@ -539,9 +549,10 @@ void drawThermometerIcon(uint32_t base_x_pos, uint32_t base_y_pos, uint16_t bk_c
 
 ![IMG_2202_640.JPG](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/371217/f7c0e51f-9ac8-2b33-6d12-f670655d8c5f.jpeg)
 
-
 ## ④「時刻/日付」機能
+
 ### **KLOCKIS クロッキス**の挙動チェック
+
 **KLOCKIS クロッキス**の時刻/日付機能では年月日、時刻、曜日を表示しています。
 
 - 背景色は赤色
@@ -554,9 +565,11 @@ void drawThermometerIcon(uint32_t base_x_pos, uint32_t base_y_pos, uint16_t bk_c
 これに合わせてM5Stackに実装していきます。
 
 ### M5Stackへの実装
+
 背景色の部分は[先ほど](https://qiita.com/yankee/private/1591724d8a2722951c7e#%E8%83%8C%E6%99%AF%E8%89%B2%E8%A8%AD%E5%AE%9A)と同じなので省略。
 
 #### ◆日時・曜日情報取得
+
 時刻/日付機能表示では、最初にNTPサーバにアクセスして時刻情報の取得を行います。
 ただし、その毎ループNTPサーバにアクセスするのはあまりよろしくないので、
 
@@ -568,10 +581,12 @@ _参考URL_：[espressif/arduino-esp32 SimpleTime.ino](https://github.com/espres
 _参考URL_：[NTPサーバから時刻を取得してM5Stackに表示する](https://kuracux.hatenablog.jp/entry/2018/10/08/160000)
 
 #### ◆点滅表示
+
 特定箇所のみ点滅させるため、ループ回数をカウントし、
 `if ((count / LCD_DISP_BLINK_LOOP_CNT % 2) == 0)`といいった条件で表示のON（描画色を黒色にして、表示）、OFF（描画色を背景色にして、実質的に表示を消す）を切り替えています。
 
 #### ◆時計アイコンの作成
+
 アイコンについては、`M5.Lcd.drawPixel()`で時計の外周をプロットしていき、`M5.Lcd.drawLine()`関数をつかって、短針と長針つくっています。
 アイコン作成部分は`drawClockIcon()`関数内で実行しています。
 
@@ -859,10 +874,10 @@ void setup()
 
 ![IMG_2207_640.JPG](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/371217/82340a41-887f-2057-931a-18461ea3235c.jpeg)
 
-
-
 ## ⑤「タイマー」機能
+
 ### **KLOCKIS クロッキス**の挙動チェック
+
 **KLOCKIS クロッキス**のタイマー機能では**分**と**秒**を設定して、カウントダウンタイマーとして動作させることができます。仕様は以下のような感じです。
 
 - 背景色は緑色
@@ -883,11 +898,12 @@ void setup()
 
 次に、これに合わせてM5Stackに実装していきます。
 
-
 ### M5Stackへの実装
+
 背景色の部分は[先ほど](https://qiita.com/yankee/private/1591724d8a2722951c7e#%E8%83%8C%E6%99%AF%E8%89%B2%E8%A8%AD%E5%AE%9A)と同じなので省略。
 
 #### ◆状態管理
+
 「タイマー」機能では、タイマー設定状態やタイマーのカウントダウン状態などいくつかの状態を遷移する必要があったので、`e_cnt_timer_status`という変数でステータスを持たせて、その状態によって処理を変えていきます。
 取り得る状態としては、
 
@@ -900,6 +916,7 @@ void setup()
 ・・・が、アラーム音については、M5Stackから出る音が思いのほか大きく、抵抗をかませたりしないと音量制御が難しそうだったため、音を出すかわりに「RINGING」という表示を出すことでお茶を濁しています。
 
 #### ◆ボタンによるタイマー設定
+
 ボタンによるステータス切り替えやタイマー時間設定に使用するボタンについてはM5Stack FIREのAボタンとCボタンを使用しました。
 [挙動チェック](https://qiita.com/drafts/1591724d8a2722951c7e/edit#klockis-%E3%82%AF%E3%83%AD%E3%83%83%E3%82%AD%E3%82%B9%E3%81%AE%E6%8C%99%E5%8B%95%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF-4)のところの書き方でいうと、Aボタンがボタン①、Cボタンがボタン②の役割になります。
 `CNT_DOWN_TIMER_NOT_SET`状態からAボタンを押すたびに、
@@ -910,20 +927,22 @@ void setup()
 _参考URL_：[m5stack/m5-docs wasReleased()](https://github.com/m5stack/m5-docs/blob/master/docs/en/api/button.md#wasreleased)
 
 #### ◆タイマーのカウントダウン処理
+
 ステータスが`CNT_DOWN_TIMER_RUNNING`に切り替わると、設定されたタイマーの分と秒をチェックし、タイマー時間が0分0秒の場合は`CNT_DOWN_TIMER_NOT_SET`状態に戻ります。
 分または秒どちらかでも0以外の値が設定されていた場合、カウントダウンしていきます。
 最初に現在の時間を`millis()`関数で取得し、そこにタイマー設定した分と秒をミリ秒換算して加算したものを基準時間として`set_milli_time`変数に格納しておきます。
 その後、`diff_milli_time = set_milli_time - millis()`で時間をカウントダウンしていき、0以下になったらタイマー時間に達したとして、`CNT_DOWN_TIMER_RINGING`状態に遷移します。
 
 #### ◆カウントダウン終了処理
+
 `CNT_DOWN_TIMER_RINGING`では下の画像のように、”RINGING”という文字を白文字で表示します。
 この状態で、AボタンまたはCボタンを押すと、状態が遷移して、”RINGING”の文字は消えます。
 ※実際にアラーム音を出したい場合、ここにSpeaker関連の関数を呼び出す形になります。
 
 ![IMG_2211_320.JPG](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/371217/4fce3f10-e78c-132e-94de-4c53533cb00f.jpeg)
 
-
 #### ◆砂時計アイコンの作成
+
 アイコンについては、`M5.Lcd.drawTriangle()`関数と`M5.Lcd.fillTriangle()`関数で三角形を4つ組み合わせて簡単な砂時計を作っています。
 アイコン作成は`drawSandglassIcon()`関数内で処理しています。
 
@@ -1187,7 +1206,9 @@ void drawSandglassIcon(uint32_t base_x_pos, uint32_t base_y_pos, uint16_t color)
 ![IMG_2213_640.JPG](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/371217/3bc199cf-2b09-9d06-e8a6-d5881bccff6b.jpeg)
 
 ## ⑥「アラーム」機能
+
 ### **KLOCKIS クロッキス**の挙動チェック
+
 **KLOCKIS クロッキス**の「アラーム」機能では**時**と**分**を設定して、アラーム（目覚まし時計）として動作します。仕様は以下のような感じです。
 
 - 背景色は緑色
@@ -1209,9 +1230,11 @@ void drawSandglassIcon(uint32_t base_x_pos, uint32_t base_y_pos, uint16_t color)
 この辺の仕様もふまえて、M5Stackに実装していきます。
 
 ### M5Stackへの実装
+
 背景色の部分は[先ほど](https://qiita.com/yankee/private/1591724d8a2722951c7e#%E8%83%8C%E6%99%AF%E8%89%B2%E8%A8%AD%E5%AE%9A)と同じなので省略。
 
 #### ◆状態管理
+
 「アラーム」機能でも「タイマー」機能同様、状態によって処理を変えていきます。ステータスは`e_alarm_status`変数で管理します。
 取り得る状態としては、
 
@@ -1223,10 +1246,12 @@ void drawSandglassIcon(uint32_t base_x_pos, uint32_t base_y_pos, uint16_t color)
 なお、先ほど同様、アラーム時刻のアラーム音については、見送っています。
 
 #### ◆ボタンによるアラーム時刻設定
+
 基本的な処理は[「タイマー」設定](https://qiita.com/drafts/1591724d8a2722951c7e/edit#m5stack%E3%81%B8%E3%81%AE%E5%AE%9F%E8%A3%85-4)の時間設定と同じです。
 異なる点としては、`ALARM_SETTING_MINUTE`状態でAボタンを押したときに`enableAlarm()`関数を呼び出してタイマーイベントを設定しています（詳細は後述）。
 
 #### ◆アラーム設定済み状態表示＆ベルアイコンの作成
+
 `ALARM_RUNNING`状態では設定されたアラーム時刻の表示とベルアイコンを表示するだけになります。
 アイコンについては、`M5.Lcd.fillEllipse()`関数と`M5.Lcd.fillRect()`関数、`M5.Lcd.fillTriangle()`関数組み合わせてベルっぽいのを作っています。
 ※手間の関係で**KLOCKIS クロッキス**と比べて、ベルアイコンは少し形が変わってます・・
@@ -1234,6 +1259,7 @@ void drawSandglassIcon(uint32_t base_x_pos, uint32_t base_y_pos, uint16_t color)
 ベルアイコン作成は`drawBellIcon()`関数内で処理しています。
 
 #### ◆アラーム時刻のタイマーイベント設定
+
 「アラーム」機能では、M5Stackのタイマー系のライブラリである`M5Timer`を使用して、タイマーイベントを設定しています。
 アラーム時刻設定時に`enableAlarm()`関数を呼び出し、その関数内で`setTimeout(timer_ms, wakeUpTime)`関数を実行しています。
 `timer_ms`で指定した時間が経過すると、第2引数で指定した関数（`wakeUpTime()`）が呼び出されます。
@@ -1243,6 +1269,7 @@ void drawSandglassIcon(uint32_t base_x_pos, uint32_t base_y_pos, uint16_t color)
 _参考URL_：[m5stack/m5-docs M5Timer.md](https://github.com/m5stack/m5-docs/blob/master/docs/en/api/M5Timer.md)
 
 #### ◆タイマーイベント発生時処理
+
 `setTimeout(timer_ms, wakeUpTime)`関数で指定した時間経過後に`wakeUpTime()`関数が呼び出されます。
 `wakeUpTime()`関数では、音は鳴らさず、画面いっぱいに**WAKE UP**と表示しています。
 この関数内では、`while (1)`でループさせ、A,B,Cボタンのいずれかが押されないと解除されない仕様にしています（時計を傾けても機能は切り替わらない）。
@@ -1250,6 +1277,7 @@ _参考URL_：[m5stack/m5-docs M5Timer.md](https://github.com/m5stack/m5-docs/bl
 ![IMG_2222_320.JPG](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/371217/21d6a41f-7504-b0db-e379-4bda50db0799.jpeg)
 
 #### ◆目覚まし時計アイコンの作成
+
 アイコンについては、`M5.Lcd.drawEllipse()`関数と`M5.Lcd.drawLine()`、`M5.Lcd.fillRect()`、`M5.Lcd.fillTriangle()`関数を組み合わせて作成。
 アイコン作成は`drawAlarmIcon()`関数内で処理しています。
 
@@ -1518,6 +1546,7 @@ void disableAlarm(int16_t callback_slot_id)
 ![IMG_2216_640.JPG](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/371217/1163621a-1237-742e-2529-d12c8e0e1ff2.jpeg)
 
 ## ⑦実装まとめ
+
 これで一通りコードができました。
 <details><summary>最後に全体のソースコードを以下に記載します。
 ※ソースコードがかなり長くなってしまったため、折畳みにしてあります</summary><div>
@@ -2824,7 +2853,10 @@ void loop()
 <blockquote class="twitter-tweet"><p lang="ja" dir="ltr"><a href="https://twitter.com/hashtag/Qiita?src=hash&amp;ref_src=twsrc%5Etfw">#Qiita</a> のM5Stack Advent Calendar記事投稿用<br>GIF化するよりこっちの方が動画埋め込むのらくそう。 <a href="https://t.co/l8MRaAz8kl">pic.twitter.com/l8MRaAz8kl</a></p>&mdash; yankee (@yankee_sns) <a href="https://twitter.com/yankee_sns/status/1201125638435823621?ref_src=twsrc%5Etfw">December 1, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
 
 # ◇おわりに
+
 当初予定に比べて思いのほかコードが膨大になってしまいました。。
 元々はM5Stackの使い方に慣れる目的で作り始めたアプリでしたが、やはり既存の製品と同じようなモノを作るというのは大変だなと感じた今日この頃・・。
 もし、今回のアプリをご自分のM5Stackにも入れてみたいと思われた方は試していただければ幸いです。
 この後も続く**M5Stack Advent Calendar**の投稿を楽しみにしつつ、次の方につなぎたいと思います。
+
+# 🔚
