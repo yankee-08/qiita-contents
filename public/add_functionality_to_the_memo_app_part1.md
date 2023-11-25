@@ -11,17 +11,22 @@ updated_at: '2023-04-08T21:01:53+09:00'
 id: ce4e38346de880f7eabe
 organization_url_name: null
 slide: false
+ignorePublish: false
 ---
 # ◇はじめに
+
 前回のこの記事（[WEBアプリの勉強を兼ねてDjangoで備忘録登録アプリを作ってみる](https://qiita.com/yankee/items/304f58273fb676f51f7a)）からの続きになります。
 
 # ◇記事投稿順（2019/06/29追記）
+
 今回は、ベースのWEBアプリを1.の記事で作成し、2.以降の記事で機能の追加や改善を行っています。必要に応じてほかの記事も参照ください。
+
 1. [WEBアプリの勉強を兼ねてDjangoで備忘録登録アプリを作ってみる](https://qiita.com/yankee/items/304f58273fb676f51f7a)
 2. 【本記事】Djangoで作った備忘録登録WEBアプリの高機能化①（タイトル・タグ・本文検索機能の付加）
 3. [Djangoで作った備忘録登録WEBアプリの高機能化②（タグ一覧表示、タグ別記事の追加など）](https://qiita.com/yankee/items/4e387b8ec4c5a4053c89)
 
 # ◇今回追加した機能
+
 前回の記事の最後に課題として挙げていた、以下の項目のうち、タイトル検索、タグ検索機能の実装をおこないました。
 
 > + [x] タイトル検索、タグ検索機能の実装（現状、タグが役に立っていない・・）。
@@ -34,7 +39,8 @@ slide: false
 当初、タグの管理メニューまで挑戦する予定でしたが、検索機能の実装でいろいろハマったポイントがあり、実装に時間がかかってしまったため、検索機能までとしています。
 ハマったポイントについては、途中途中で記載していきます。
 
-#◇開発環境（前回と同じ）
+# ◇開発環境（前回と同じ）
+
 + OS : Ubuntu 18.04.2 LTS(Windows Subsystem for Linux)
 + 言語 : Python 3.6.7
 + Webアプリフレームワーク : Django (2.2)
@@ -44,8 +50,8 @@ slide: false
 
 今回の記事ではプログラミングした順にのっとり、
 
-+ 外観部分（HTML）の作成　⇒　
-+ 検索データのPOST処理（JavaScript）　⇒　
++ 外観部分（HTML）の作成　⇒
++ 検索データのPOST処理（JavaScript）　⇒
 + サーバ側での記事検索・該当記事の返答処理（Django）　⇒
 + レスポンスデータによるHTMLの部分更新（JavaScript）  
 という流れで記事を書いています。
@@ -91,6 +97,7 @@ slide: false
 これでとりあえず外観はできたので、次に`Search`ボタンを押したときの`JavaScript`の処理を実装していきます。
 
 ### ◆検索データPOST処理（JavaScript部分）
+
 検索ボックスに入力したデータのPOST処理ですが、今回`Ajax`でのHTML部分更新（記事リストの部分のみ更新し、検索ボックス部分は更新させない）を行うため、`JavaScript`を追加しています。
 そのため、前回のファイル構成から`js/index.js`を追加しています。
 
@@ -168,7 +175,6 @@ _参考URL_：[DjangoでPOSTメッセージにCSRFtokenを含ませる方法ま�
 _参考URL_：[A simple, lightweight JavaScript API for handling browser cookies ](https://github.com/js-cookie/js-cookie/)
 
 > 以下、[クロスサイトリクエストフォージェリ (CSRF) 対策](https://docs.djangoproject.com/ja/2.2/ref/csrf/#ajax) ページからの引用です。
-
 >> 上記のコードは JavaScript Cookie library を使って getCookie を置き換えればシンプルにできます:
 >> `var csrftoken = Cookies.get('csrftoken');`
 
@@ -289,7 +295,8 @@ class ArticleListView(generic.ListView):
 この問題については、
 
 + `Django`側での`JsonResponse()`の引数の指定の仕方が悪かったのか？
-+ レスポンスのデータの中身を`res.json()`でうまくデコードできなかったのか？   
++ レスポンスのデータの中身を`res.json()`でうまくデコードできなかったのか？
+
 など色々調べましたが、原因を特定するのに３日ほどかかってしまいました、、
 
 結論としては、（答えがわかれば単純ですが）`res.json()`に__`await`__を付けていなかったことが原因でした。
@@ -314,14 +321,11 @@ __`await`__をつけることにより、レスポンスのデータが正しく
 _参考URL_：[async/await地獄](https://qiita.com/rana_kualu/items/e6c5c0e4f60b0d18799d)
 </div></details>
 
-
-
 ### ◆レスポンスデータによるHTMLの部分更新（JavaScript）
 
 最後に`Django`からのレスポンスを受け取り、HTMLを更新します。
 `index.html`では、要素の更新を行うための基準となる、記事リストの`ul`タグに`id`を追加します。
 また、年月日の表示形式を`Y年m月d日(D)`から`Y-m-d`に変更しています。これは、`Ajax`でPOSTした際のレスポンスデータの年月日の表示形式に合わせるためです（`JavaScript`側で年月日の表示形式を合わせることもできそうでしたが、そこまでこだわりがなかったため、簡単に修正できる方法を選択しました）。
-
 
 ```Django:index.html
 ---略---
@@ -436,9 +440,7 @@ _参考URL_：[Chrome 57 からエンコーディングの自動判別がダメ�
 この記事によると、サーバ側のレスポンスヘッダーに`UTF-8`の文字コードを設定してあげれば解決可能とのことでしたので、実際にコードを修正したところ`Chrome`での文字化けがなくなりました。
 （以下は、タグ検索で`Django`を検索ワードとして検索した例）
 
-
 ![003.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/371217/e8ce215e-5591-5088-6697-ef9355ed7d06.png)
-
 
 ### ◆今回修正したファイルのソースコード
 
@@ -481,6 +483,7 @@ _参考URL_：[Chrome 57 からエンコーディングの自動判別がダメ�
   </ul>
 {% endblock content %}
 ```
+
 ```JavaScript:index.js
 
 const searchItemListElement = document.getElementById("js-search-item-list");
@@ -659,10 +662,10 @@ class TagCreateView(generic.edit.CreateView):
 
 </div></details>
 
-
-
-#◇おわりに
+# ◇おわりに
 
 + [前回の投稿](https://qiita.com/yankee/items/304f58273fb676f51f7a)から、記事検索機能を実装できました。
 + 今回は、前回以上にいろいろとハマってしまい完成までに時間がかかりましたが、今後もマイペースで機能追加していきたいと思います（その際は、今回のようにハマったポイントもあわせて掲載していければと思います）。
 + つぎはタグの管理メニュー（削除、一覧表示など）関係を実装していければと思います。
+
+# 🔚
