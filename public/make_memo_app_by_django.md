@@ -11,32 +11,39 @@ updated_at: '2023-04-08T20:56:45+09:00'
 id: 304f58273fb676f51f7a
 organization_url_name: null
 slide: false
+ignorePublish: false
 ---
 # ◇この記事について
+
 今回、初めての投稿となります（ホントは平成の間に初投稿といきたかったのですが、よくある日程遅延で令和までもつれ込みました・・）。
 私自身プログラミング経験はあったんですが、WEBアプリ関係の知識がほとんどなかったため、知識・スキルを広げることを目的にこのアプリを作成してみました。
 まずは、このアプリをベースにWEBアプリケーションに関する知識を少しずつ深めていければと思います。
 
 # ◇記事投稿順（2019/06/29追記）
+
 今回は、ベースのWEBアプリを1.の記事で作成し、2.以降の記事で機能の追加や改善を行っています。必要に応じてほかの記事も参照ください。
+
 1. 【本記事】WEBアプリの勉強を兼ねてDjangoで備忘録登録アプリを作ってみる
 2. [Djangoで作った備忘録登録WEBアプリの高機能化①（タイトル・タグ・本文検索機能の付加）](https://qiita.com/yankee/items/ce4e38346de880f7eabe)
 3. [Djangoで作った備忘録登録WEBアプリの高機能化②（タグ一覧表示、タグ別記事の追加など）](https://qiita.com/yankee/items/4e387b8ec4c5a4053c89)
 
-
 # ◇開発環境
+
 + OS : Ubuntu 18.04.2 LTS(Windows Subsystem for Linux)
 + 言語 : Python 3.6.7
 + Webアプリフレームワーク : Django (2.2)
 + DB : SQLite3
 
 # ◇事前知識
+
 + Python : 勉強始めて１年程度
 + HTML/CSS/JavaScript : 勉強始めて２～３か月程度（ 主に[paizaラーニング](https://paiza.jp/works)、[ドットインストール](https://dotinstall.com/)を使って学習 ）
 + Django : Djangoドキュメントの[はじめての Django アプリ作成](https://docs.djangoproject.com/ja/2.2/intro/tutorial01/)をさらっと試した程度
 
 # ◇実装内容
+
 ### ◆初期設定関係
+
 Djangoのインストール手順は、[はじめての Django アプリ作成](https://docs.djangoproject.com/ja/2.2/intro/tutorial01/)に沿って進めていきました。細かい部分は省略しますが、以下のコマンドで、プロジェクトおよび備忘録用アプリを新規作成します。
 
 ```:Terminal
@@ -89,8 +96,6 @@ USE_TZ = True
 
 ```
 
-
-
 > + `INSTALLED_APPS`内への`memorandum.apps.MemorandumConfig`の追加
 
 ここでは、`mysite/memorandum/apps.py`内にある`class MemorandumConfig`をプロジェクトに登録しています。
@@ -125,7 +130,6 @@ TIME_ZONE = 'Asia/Tokyo'
 という形になります。
 
 _参考URL_：[Djangoで、タイムゾーンの変換](https://narito.ninja/blog/detail/82/)
-
 
 ### ◆ファイル構成
 
@@ -380,6 +384,7 @@ _参考URL_：[[Django] success_urlとget_success_urlおよびreverseとreverse_
 ```
 
 #### □トップページ（記事一覧表示）`index.html`の作成
+
 `object_list`内にモデル定義したデータが入っているため、forループで中のアイテムを一つづつ取り出し、そのデータを表示しています。
 それぞれの要素については、`models.py`で定義した変数名（titleなど）を`{{ item.title }}`という形で指定すればそのデータが表示されます。
 
@@ -484,17 +489,17 @@ _参考URL_：[Django: 組み込みタグとフィルタの一覧](https://qiita
 
 ![create.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/371217/6d2d52f8-970e-041f-f7ad-8759ac1c12f7.png)
 
-
 update、deleteについては今回は割愛します。
 ここまでの作業で備忘録の新規追加、一覧表示、詳細表示、記事修正、削除の機能をもつWEBアプリを作成することができました。
 ※TAGについては、現状createしかできず、TAGを削除する場合はadminサイトから行う必要があるため、今後直していければと思います
 
-
 # ◇その他、参考にした記事
+
 + [Djangoの 汎用クラスビューをまとめて、実装について言及する](https://qiita.com/renjikari/items/af3e8958d2653e6f8d46)
 + [[Django]NoReverseMatch ‘hoge’ is not a valid view function or pattern name.とエラーが出た時の確認事項](https://code-schools.com/django-noreversematch/)
 
 # ◇今後追加したい機能
+
 + タイトル検索、タグ検索機能の実装（現状、タグが役に立っていない・・）。
 -> [こちら](https://qiita.com/yankee/items/ce4e38346de880f7eabe)に追加記事を記載しました。（2019/06/02追記）
 
@@ -506,6 +511,7 @@ update、deleteについては今回は割愛します。
 ⇒フレームワークどーせ入れるならSass（SCSS or SASS）も試してみたい。
 
 # ◇最後に
+
 + 今回、初めての投稿となったわけですが、記事作成に想定よりも時間がかかるというのを改めて痛感しました（結局、GW最終日の夜中まで掛かった）。。
 + 私よりわかりやすい記事を書いている方々の凄さを実感するとともに、そんな記事を載せてくれる人達のありがたみがを再認識できるGWとなりました。
 + Djangoについては、Qiita内でも多くの記事が既に出ていますので、そちらの方が参考になるかとは思いますが、少しでも参考になる方がいれば幸いです。
