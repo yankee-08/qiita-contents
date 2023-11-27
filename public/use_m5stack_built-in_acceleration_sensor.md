@@ -7,7 +7,7 @@ tags:
   - mpu9250
   - M5stack
 private: false
-updated_at: '2023-04-08T21:06:48+09:00'
+updated_at: '2023-11-28T00:55:05+09:00'
 id: 35542dcf095317ac4d7e
 organization_url_name: null
 slide: false

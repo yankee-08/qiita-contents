@@ -7,7 +7,7 @@ tags:
   - Web
   - Ajax
 private: false
-updated_at: '2023-04-08T21:01:53+09:00'
+updated_at: '2023-11-28T00:55:05+09:00'
 id: ce4e38346de880f7eabe
 organization_url_name: null
 slide: false
