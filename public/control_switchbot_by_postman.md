@@ -539,8 +539,6 @@ https://zenn.dev/7oh/scraps/c540b175727f28
 
 ## ◇おわりに
 
-Postmanの使い方を学ぶ
-
 前述しましたが、今回のワークスペースはPostman上に公開しています。簡単に試してみたい場合は以下URLからforkして実行してみてください。
 
 https://www.postman.com/lunar-resonance-715260/workspace/switchbot-api-ws
