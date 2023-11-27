@@ -1,13 +1,13 @@
 ---
 title: Postmanを使ってSwitchBotデバイスを制御してみた
 tags:
-  - Postman
   - WebAPI
+  - Postman
   - SwitchBot
   - AdventCalendar2023
 private: true
-updated_at: ''
-id: null
+updated_at: '2023-11-25T22:01:57+09:00'
+id: c31b09811c1e27956a62
 organization_url_name: null
 slide: false
 ignorePublish: false
