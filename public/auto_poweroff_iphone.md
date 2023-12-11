@@ -1,14 +1,14 @@
 ---
 title: iPhoneが80%充電されたら、自動的に給電を止めるようにする
 tags:
-  - 自動化
-  - SwitchBot
   - iPhone
+  - 自動化
   - AzureFunctions
+  - SwitchBot
   - AdventCalendar2023
 private: false
-updated_at: ''
-id: null
+updated_at: '2023-12-11T23:40:18+09:00'
+id: afffe089fcc049cdb61a
 organization_url_name: null
 slide: false
 ignorePublish: false
