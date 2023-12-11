@@ -6,8 +6,8 @@ tags:
   - PowerPlatform
   - ローコード
   - AdventCalendar2023
-private: true
-updated_at: '2023-12-03T21:32:49+09:00'
+private: false
+updated_at: '2023-12-04T07:01:41+09:00'
 id: fc127636876755b24935
 organization_url_name: null
 slide: false

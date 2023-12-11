@@ -5,7 +5,7 @@ tags:
   - Postman
   - SwitchBot
   - AdventCalendar2023
-private: true
+private: false
 updated_at: '2023-11-28T20:50:00+09:00'
 id: c31b09811c1e27956a62
 organization_url_name: null
