@@ -11,6 +11,7 @@ updated_at: '2023-03-28T20:29:48+09:00'
 id: b9dfba1b5e461a389b19
 organization_url_name: null
 slide: false
+ignorePublish: false
 ---
 ## ◇はじめに
 本記事では、Microsoft社Power Platformの中のPower AutomateのRSSコネクタを使い、指定したサイトのRSSの更新情報をTeamsにアダプティブ形式カードで投稿する手順をまとめた記事になります。

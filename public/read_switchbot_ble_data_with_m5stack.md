@@ -10,6 +10,7 @@ updated_at: '2023-06-02T23:43:28+09:00'
 id: f1e1fd47a1a3e83501e4
 organization_url_name: null
 slide: false
+ignorePublish: false
 ---
 
 :::note info
