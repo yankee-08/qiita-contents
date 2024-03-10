@@ -1,14 +1,14 @@
 ---
 title: M5Stack + Azure Logic Apps + Teamsを使った呼出しアプリ
 tags:
-  - M5stack
+  - Postman
   - uiflow
   - AzureLogicApps
   - Teams
-  - Postman
+  - M5stack
 private: false
-updated_at: ''
-id: null
+updated_at: '2024-03-10T15:49:31+09:00'
+id: b5589373d7be53eceb97
 organization_url_name: null
 slide: false
 ignorePublish: false
