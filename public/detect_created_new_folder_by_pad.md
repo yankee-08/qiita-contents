@@ -7,7 +7,7 @@ tags:
   - PowerPlatform
   - PowerAutomateDesktop
 private: false
-updated_at: '2023-03-21T00:40:51+09:00'
+updated_at: '2024-03-11T17:49:41+09:00'
 id: 070a34cc74c9e6dbfe28
 organization_url_name: null
 slide: false
