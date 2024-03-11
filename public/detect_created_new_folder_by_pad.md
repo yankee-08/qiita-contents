@@ -11,14 +11,17 @@ updated_at: '2023-03-21T00:40:51+09:00'
 id: 070a34cc74c9e6dbfe28
 organization_url_name: null
 slide: false
+ignorePublish: false
 ---
 めっきり記事を書いてなかったのですが、久々に記事を書いてみます。
 最近はマイコンも触りつつ、Microsoft系のサービス（Microsoft365やPower Platform）に関わることが増えてきたため、今回はPower Automate Desktopの簡単な記事となります。
 
 ## ◇はじめに
+
 本記事では、Microsoft社が提供しているPower Automate Desktopを使って、共有フォルダ内に新規フォルダが作成されたことを検出して、メッセージボックスで通知するシナリオを作りました。
 
 ## ◇開発環境等
+
 <dl>
   <dt>OS：</dt>
   <dd>Windows 10 Home（Ver:22H2）</dd>
@@ -27,8 +30,8 @@ slide: false
 </dl>
 
 ## ◇Power Automate Desktopとは？
-詳細は、Microsoft社のHPをご確認ください。
 
+詳細は、Microsoft社のHPをご確認ください。
 
 https://www.microsoft.com/ja-jp/biz/smb/column-power-automate-desktop.aspx#primaryR5
 
@@ -36,7 +39,9 @@ https://www.microsoft.com/ja-jp/biz/smb/column-power-automate-desktop.aspx#prima
 > Microsoft Automate Desktopは、ワーク フローを自動化するツールである Microsoft Power Automate の一機能です。デスクトップ操作を自動化するための機能を持ち、Windows 10 および Windows 11 ユーザーであれば、無償で利用することができます。
 
 ## ◇シナリオの作成
+
 ### 使用できそうなアクションの検討
+
 本来は先にフローの検討になりそうですが、Power Automate Desktopのアクションによっては処理が簡単になる可能性もあるので、先に使えそうなアクションを検討します。
 
 #### ❎検討したけど、使わなかったアクション
@@ -46,13 +51,13 @@ https://www.microsoft.com/ja-jp/biz/smb/column-power-automate-desktop.aspx#prima
 このアクションでは、**指定するパスに状況を確認する完全なパスを入力**する必要があります。
 今回は、フォルダ名の検索を部分一致で検索したかったため、使用を見送りました。
 
-
 - 「ファイルを待機します」アクション
 ![アクション002.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/371217/eb217630-9666-c252-70e9-9be1b7cfa3a1.png "ファイルを待機しますアクション")
 このアクションは、指定したパス内にファイルが新規作成または削除されるまでフローを停止します。
 このアクションを使うことで、定期的なポーリング処理を行わないようにできますが、こちらについてもファイル名の完全なパスが必要なことから使用を見送りました。
 
 #### 💮採用したアクション
+
 - 「フォルダー内のサブフォルダーの一覧を取得」アクション
 ![アクション003.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/371217/3ed0ad24-67e8-dc7b-bf37-2829411f1d1f.png "フォルダー内のサブフォルダーの一覧を取得アクション")
 このアクションは指定したフォルダパス内のサブフォルダを一覧で取得できます。
@@ -61,6 +66,7 @@ https://www.microsoft.com/ja-jp/biz/smb/column-power-automate-desktop.aspx#prima
 なお、これら以外に使用した一般的なアクション（ループ、条件分岐など）はここで個別の説明は省きます。
 
 ### フロー検討
+
 PlantUMLでフローチャートを書いてみました。
 （QiitaにPlantUML機能が知らん内に増えてた・・・）
 
@@ -87,6 +93,7 @@ repeat while()
 ```
 
 ### 最終的に作ったフロー
+
 最終的にできたフローは以下の通りです。
 少し、アクティビティ図から変更されてます。
 ![アクション004.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/371217/1a9a12c4-2a8b-2406-b4b8-f71724699233.png)
@@ -94,11 +101,13 @@ repeat while()
 ![アクション005.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/371217/8c40be7a-4b41-30bc-5f56-cd81a9c0d3cc.png)
 
 #### ①変数の設定
+
 設計時はフォルダパス名、検索ワードを変数に格納してましたが、 ~~めんどいんで、~~ そのまま直打ちしてます。
 代わりに、`FlagDirDetect`という変数を設定しています。
 これは、今回ループがネストしているため、`ループを抜ける`アクションだけではうまくいかなかったためです。
 
 #### ②サブフォルダ一覧の取得
+
 まず、全体を`While(1)=(1)`で無限ループにします。
 次に、指定したフォルダのサブフォルダ一覧を取得しています。
 この時、サブフォルダ一覧の取得時にフィルターを使用することで、取得するフォルダ名を予め制限することも可能です。
@@ -108,6 +117,7 @@ repeat while()
 ![アクション006.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/371217/2e4aac5f-f804-914a-516b-fff724bfa784.png)
 
 #### ③フォルダ名の部分一致検索
+
 サブフォルダ名は複数取得されることがあるため、取得したサブフォルダ一つ一つに対して、検索をかける必要があります。
 そこで、ループブロックの`For each`アクションを使い、反復処理を行う値に先ほどのサブフォルダ一覧を設定することで、一覧から一つずつフォルダ名を取得することが可能になります。
 今回の場合は、`CurrentItem`にサブフォルダ名が一つずつ格納される形になります。
@@ -116,12 +126,13 @@ repeat while()
 ![アクション007.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/371217/08a78583-0950-c864-85c2-090c8f7647ab.png)
 
 #### ④検索ワードに一致した場合の処理
+
 ③のフォルダ名検索でワードが一致した場合は、ループを抜けさせます。このとき、単純にループを抜けるアクションのみだと、`For each`アクションのループしか抜けないため、①で定義した変数`FlagDirDetect`を`True`に設定しています。
 `While(1)=(1)`のループ上で、`FlagDirDetect`のステータスをチェックし、`True`の場合は`While(1)=(1)`のループも抜ける形にしています。
 今回のフローでは、ループを抜ける＝検索ワードと部分一致するフォルダが見つかったことになるので、最後にメッセージボックスを表示するアクションを設定してフローを終了させます。
 
-
 #### ⑤検索ワードに一致した場合の処理
+
 サブフォルダを全て検索しても、検索ワードと部分一致するフォルダが見つからなかった場合、`For each`アクションのループは抜けますが、`FlagDirDetect`が初期値（False）のままのため、指定した秒数だけウェイト処理がかかり、再度サブフォルダ名の取得（②）を実行する流れになります。
 
 :::note warn
@@ -135,11 +146,13 @@ repeat while()
 ![アクション008.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/371217/b00393e8-21c9-2a13-14fe-3d1edc6cb4d5.png)
 
 ## ◇おわりに
+
 今回、初めてPower Automate Desktopで記事を書いてみました。やってることは単純な処理ですが、Python等のプログラミング言語を使うより手軽に作ることができたと思います。
 なお、今回のアプリの注意点は、以下になります。
 
 :::note info
 シナリオ使用時の注意点
+
 - 指定したフォルダ下にサブフォルダが大量にある場合、処理に時間がかかる
 - 検索ワードに部分一致するフォルダを最初に検出した時点で処理が終了する
 （フォルダコピーの処理を入れている場合、コピーされるフォルダが変わる可能性）
@@ -147,3 +160,5 @@ repeat while()
 :::
 
 以上
+
+# 🔚
