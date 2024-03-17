@@ -2,13 +2,13 @@
 title: ミニPC（Intel NUC）へのProxmox VEのインストールから初期設定まで
 tags:
   - Linux
-  - proxmox
-  - ProxmoxVE
   - サーバー
+  - proxmox
   - 仮想化
+  - ProxmoxVE
 private: false
-updated_at: ''
-id: null
+updated_at: '2024-03-17T23:29:01+09:00'
+id: 1d576f7a25d6f33c6cb5
 organization_url_name: null
 slide: false
 ignorePublish: false
