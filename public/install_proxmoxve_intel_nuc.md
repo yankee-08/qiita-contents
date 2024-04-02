@@ -20,6 +20,11 @@ ignorePublish: false
 本記事では、ミニPC上にProxmox VEを導入するところまでを説明しています。
 それ以降のVM（Ubuntu）のインストール、初期設定などは出来次第、別記事にまとめる予定です。
 
+（2024/04/02追記）
+[続きの記事](https://qiita.com/yankee/items/495e80193070f6e70b65)を書きました。
+
+https://qiita.com/yankee/items/495e80193070f6e70b65
+
 Proxmoxの概要については、この辺のサイトが参考になるかと思います。
 
 https://www.proxmox.com/en/proxmox-virtual-environment/overview
@@ -202,5 +207,10 @@ MFAが正しく動作するかを確認するため、一旦ログアウトし�
 
 何番煎じか分かりませんが、仮想化環境として、Proxmox VEのインストールと初期設定までを行いました。
 次のステップとして、VM（Virtual Machine）としてUbuntu Serverの導入と初期設定を試したいと思います。
+
+（2024/04/02追記）
+Ubuntu Serverの導入については、こちらで記事にしました。
+
+https://qiita.com/yankee/items/495e80193070f6e70b65
 
 # 🔚END
