@@ -7,7 +7,7 @@ tags:
   - ショートカット
   - REST-API
 private: true
-updated_at: '2024-05-29T00:05:04+09:00'
+updated_at: ''
 id: 356c0216347650af67e0
 organization_url_name: null
 slide: false
