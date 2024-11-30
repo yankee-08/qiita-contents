@@ -1,14 +1,14 @@
 ---
 title: iPhoneからREST APIでkintoneにレコード登録する
 tags:
-  - kintone
   - iPhone
   - ショートカット
   - REST-API
+  - kintone
   - Postman
 private: true
-updated_at: ''
-id: null
+updated_at: '2024-11-30T22:50:56+09:00'
+id: 47f6fda83dc2778ad13f
 organization_url_name: null
 slide: false
 ignorePublish: false
