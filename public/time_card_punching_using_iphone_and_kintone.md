@@ -1,14 +1,14 @@
 ---
 title: iPhoneとkintoneを用いたタイムカード打刻の自動化
 tags:
-  - kintone
   - iPhone
   - ショートカット
-  - REST-API
   - 自動化
+  - REST-API
+  - kintone
 private: true
-updated_at: ''
-id: null
+updated_at: '2024-12-03T21:57:39+09:00'
+id: 9b950f41319f8f5a4a3b
 organization_url_name: null
 slide: false
 ignorePublish: false
