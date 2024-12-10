@@ -2,13 +2,13 @@
 title: Dockerを使ったGrafana＋Infinityのセットアップ手順
 tags:
   - Linux
-  - proxmox
   - Ubuntu
   - Docker
+  - proxmox
   - grafana
 private: false
-updated_at: ''
-id: null
+updated_at: '2024-12-11T01:02:28+09:00'
+id: 0918c7c8001831008b09
 organization_url_name: null
 slide: false
 ignorePublish: false
