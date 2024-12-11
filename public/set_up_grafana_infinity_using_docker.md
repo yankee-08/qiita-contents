@@ -7,7 +7,7 @@ tags:
   - proxmox
   - grafana
 private: false
-updated_at: '2024-12-11T01:02:28+09:00'
+updated_at: '2024-12-11T17:14:00+09:00'
 id: 0918c7c8001831008b09
 organization_url_name: null
 slide: false
