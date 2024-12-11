@@ -136,7 +136,7 @@ URLにアクセスすると、Grafanaのログイン画面が表示されます�
 
 <img src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/371217/5730b450-3d22-65d5-42d8-cf6e3275cff6.png" width="300">
 
-## Infinityプラグインのインストール確認
+### Infinityプラグインのインストール確認
 
 Grafanaにログイン出来たら、Infinityプラグインがインストールされているかを確認します。
 トップ画面の左側メニューから`Connections`を選択し、検索窓から`Infinity`で検索します。
