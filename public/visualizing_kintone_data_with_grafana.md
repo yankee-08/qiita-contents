@@ -16,7 +16,6 @@ ignorePublish: false
 
 https://adventar.org/calendars/11275
 
-
 12月のアドカレ内でいくつかの記事を書かせていただきました。
 今回は、それらの記事で使った、kintoneとGrafanaを連携してみました。
 
