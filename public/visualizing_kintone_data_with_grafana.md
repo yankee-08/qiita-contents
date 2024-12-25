@@ -12,7 +12,9 @@ ignorePublish: false
 ---
 ## ◇はじめに
 
-本記事は**M5Stack** Advent Calendar 2024 17日目の記事になります。
+本記事は **「すごくない」kintone　その４** Advent Calendar 2024 25日目の記事になります。
+
+https://adventar.org/calendars/11275
 
 
 12月のアドカレ内でいくつかの記事を書かせていただきました。
