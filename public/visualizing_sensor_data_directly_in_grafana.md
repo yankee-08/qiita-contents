@@ -167,6 +167,11 @@ SSIDやIPアドレスの部分はそれぞれの環境にあったものを入�
 
 なお、今回のソースコードは別途GitHubにも載せる予定です。
 
+**（2025/01/13追記）**
+GitHubにもコードを載せたので、こちらも参考にしてください。
+
+https://github.com/yankee-08/yankee-08-M5-Unified-Sensor-Json-Server
+
 <details><summary>ソースコード</summary>
 
 ```cpp:main.h
