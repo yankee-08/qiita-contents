@@ -1,13 +1,13 @@
 ---
 title: さくらのクラウド『AppRun β版』をサクッと試してみる
 tags:
-  - さくらのクラウド
-  - AppRun
   - Docker
+  - さくらのクラウド
   - grafana
+  - AppRun
 private: false
-updated_at: ''
-id: null
+updated_at: '2025-03-20T22:56:39+09:00'
+id: 53868160e6b8c5b00517
 organization_url_name: null
 slide: false
 ignorePublish: false
