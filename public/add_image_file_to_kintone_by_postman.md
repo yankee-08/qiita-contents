@@ -5,8 +5,8 @@ tags:
   - kintone
   - Postman
 private: false
-updated_at: ''
-id: null
+updated_at: '2025-05-05T17:45:33+09:00'
+id: c1259fd49d3fdff5219a
 organization_url_name: null
 slide: false
 ignorePublish: false
