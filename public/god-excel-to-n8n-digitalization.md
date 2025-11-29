@@ -2,13 +2,13 @@
 title: 神Excelをそのままデジタル化！セルフホスト型n8nで実現する連携事例（非推奨）
 tags:
   - Excel
-  - n8n
   - Docker
-  - kintone
   - DX
+  - kintone
+  - n8n
 private: true
-updated_at: ''
-id: null
+updated_at: '2025-11-29T14:08:32+09:00'
+id: 432bb58fc99478b1133b
 organization_url_name: null
 slide: false
 ignorePublish: false
