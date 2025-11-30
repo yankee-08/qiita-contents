@@ -6,7 +6,7 @@ tags:
   - suica
   - PASMO
   - ショートカットApp
-private: true
+private: false
 updated_at: '2025-11-29T14:08:32+09:00'
 id: 05fc68a747dbb7d28fe0
 organization_url_name: null
