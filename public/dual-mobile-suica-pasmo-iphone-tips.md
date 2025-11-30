@@ -2,7 +2,7 @@
 title: iPhoneでモバイルsuicaとモバイルPASMOを併用する際の手間を少しだけ楽にした話
 tags:
   - iPhone
-  - iOS
+  - whi-advent
   - suica
   - PASMO
   - ショートカットApp
