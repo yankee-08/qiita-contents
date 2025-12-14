@@ -3,12 +3,12 @@ title: iPhoneショートカットを使って画像ファイルをkintoneレコ
 tags:
   - iPhone
   - ショートカット
-  - ショートカットApp
   - REST-API
   - kintone
+  - ショートカットApp
 private: false
-updated_at: ''
-id: null
+updated_at: '2025-12-14T22:39:14+09:00'
+id: 42eda945e68ced29925c
 organization_url_name: null
 slide: false
 ignorePublish: false
