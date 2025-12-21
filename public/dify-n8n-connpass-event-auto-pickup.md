@@ -1,14 +1,14 @@
 ---
 title: Difyとn8nでconnpassの気になるイベントを自動抽出する仕組みに挑戦してみた
 tags:
-  - dify
-  - n8n
   - API
   - connpass
+  - n8n
   - 生成AI
+  - Dify
 private: false
-updated_at: ''
-id: null
+updated_at: '2025-12-21T12:57:17+09:00'
+id: 1fb1e3b28c83c156c207
 organization_url_name: null
 slide: false
 ignorePublish: false
