@@ -2,13 +2,13 @@
 title: NFCタグをトリガーとしてiPhoneショートカットを動かす
 tags:
   - iPhone
-  - ショートカットApp
-  - RPA
-  - 自動化
   - NFC
+  - 自動化
+  - RPA
+  - ショートカットApp
 private: false
-updated_at: ''
-id: null
+updated_at: '2025-12-24T01:37:59+09:00'
+id: 157172975a6229d2025a
 organization_url_name: null
 slide: false
 ignorePublish: false
